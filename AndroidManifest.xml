@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RobotActivity"></activity>
-        <activity android:name=".RobotWithResponseActivity"></activity>
+        <activity android:name=".RobotWithResponseActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize"></activity>
     </application>
 
 </manifest>

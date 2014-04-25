@@ -11,8 +11,8 @@ import com.hereshem.arduinolib.RobotControllerWithResopnse.CallNetwork;
 
 public class RobotWithResponseActivity extends Activity implements CallNetwork {
 
-	String url = "http://192.168.0.226";
-	String pin = "123456";
+	String url = "http://192.168.11.177";
+	String pin = "1234";
 	RobotControllerWithResopnse robot;
 
 	@Override
@@ -34,20 +34,29 @@ public class RobotWithResponseActivity extends Activity implements CallNetwork {
 	public void onClickFeature(View v) {
 		switch (v.getId()) {
 			case R.id.btn_forward:
-				robot.moveForward();
+				//robot.moveForward();
+				robot.moveCommand("=1");
 				toast("Forward");
 				break;
 			case R.id.btn_reverse:
-				robot.moveReverse();
+				//robot.moveReverse();
+				robot.moveCommand("=2");
 				toast("Reverse");
 				break;
 			case R.id.btn_right:
-				robot.moveRight();
+				//robot.moveRight();
+				robot.moveCommand("=3");
 				toast("Right");
 				break;
 			case R.id.btn_left:
-				robot.moveLeft();
+				//robot.moveLeft();
+				robot.moveCommand("=4");
 				toast("Left");
+				break;
+			case R.id.btn_stop:
+				//robot.moveLeft();
+				robot.moveCommand("=0");
+				toast("Stop");
 				break;
 			default:
 				break;

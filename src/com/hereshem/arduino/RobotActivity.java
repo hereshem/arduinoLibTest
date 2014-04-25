@@ -9,7 +9,7 @@ import com.hereshem.arduinolib.RobotController;
 
 public class RobotActivity extends Activity {
 
-	String BASE_URL = "http://192.168.0.226";
+	String BASE_URL = "http://192.168.11.177";
 	String pin = "123456";
 	RobotController robot;
 
@@ -32,24 +32,28 @@ public class RobotActivity extends Activity {
 	public void onClickFeature(View v) {
 
 		switch (v.getId()) {
-		case R.id.btn_forward:
-			robot.moveForward();
-			toast("Forward");
-			break;
-		case R.id.btn_reverse:
-			robot.moveReverse();
-			toast("Reverse");
-			break;
-		case R.id.btn_right:
-			robot.moveRight();
-			toast("Right");
-			break;
-		case R.id.btn_left:
-			robot.moveLeft();
-			toast("Left");
-			break;
-		default:
-			break;
+			case R.id.btn_forward:
+				//robot.moveForward();
+				robot.moveCommand("=1");
+				toast("Forward");
+				break;
+			case R.id.btn_reverse:
+				//robot.moveReverse();
+				robot.moveCommand("=2");
+				toast("Reverse");
+				break;
+			case R.id.btn_right:
+				//robot.moveRight();
+				robot.moveCommand("=3");
+				toast("Right");
+				break;
+			case R.id.btn_left:
+				//robot.moveLeft();
+				robot.moveCommand("=4");
+				toast("Left");
+				break;
+			default:
+				break;
 		}
 	}
 
