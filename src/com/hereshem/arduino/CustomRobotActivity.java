@@ -8,69 +8,49 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hereshem.arduinolib.RobotControllerWithResopnse;
 import com.hereshem.arduinolib.RobotControllerWithResopnse.CallNetwork;
 
-public class RobotWithResponseActivity extends Activity implements CallNetwork {
+public class CustomRobotActivity extends Activity implements CallNetwork {
 
 	RobotControllerWithResopnse robot;
+	EditText edtext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_control);
-		
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		setContentView(R.layout.activity_custom);
+
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		String url = preferences.getString("preIp", "http://192.168.11.177");
 		String pin = preferences.getString("prePin", "1234");
-		
+
+		edtext = (EditText) findViewById(R.id.ed_url);
+		((TextView) findViewById(R.id.txt_url)).setText(url + "/" + pin + "/ ");
 		robot = new RobotControllerWithResopnse(this);
 		robot.setBaseUrl(url);
 		robot.setPin(pin);
-		
-		if(!robot.isNetworkConnected(getApplicationContext())){
+
+		if (!robot.isNetworkConnected(getApplicationContext())) {
 			toast("No internet connection");
 		}
 	}
 
 	/*
-	 * This function is triggered by setting onclick value for the view in layout 
-	 * */
+	 * This function is triggered by setting onclick value for the view in
+	 * layout
+	 */
 	public void onClickFeature(View v) {
-		switch (v.getId()) {
-			case R.id.btn_forward:
-				//robot.moveForward();
-				robot.moveCommand("=1");
-				toast("Forward");
-				break;
-			case R.id.btn_reverse:
-				//robot.moveReverse();
-				robot.moveCommand("=2");
-				toast("Reverse");
-				break;
-			case R.id.btn_right:
-				//robot.moveRight();
-				robot.moveCommand("=3");
-				toast("Right");
-				break;
-			case R.id.btn_left:
-				//robot.moveLeft();
-				robot.moveCommand("=4");
-				toast("Left");
-				break;
-			case R.id.btn_stop:
-				//robot.moveLeft();
-				robot.moveCommand("=0");
-				toast("Stop");
-				break;
-			default:
-				break;
-		}
+		String data = edtext.getText().toString();
+		robot.moveCommand(data);
+		toast("Sending " + data);
 	}
-	
+
 	public void toast(String string) {
 		Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT)
 				.show();
@@ -81,7 +61,6 @@ public class RobotWithResponseActivity extends Activity implements CallNetwork {
 		TextView txt = (TextView) findViewById(R.id.txt_response);
 		txt.setText("Command = " + command + "\n\nResponse = \n" + result);
 	}
-
 
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,4 +73,5 @@ public class RobotWithResponseActivity extends Activity implements CallNetwork {
     	startActivity(new Intent(getApplicationContext(), SettingActivity.class));
     	return true;
     }
+
 }

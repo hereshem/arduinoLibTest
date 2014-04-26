@@ -21,9 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RobotActivity"></activity>
+        <activity android:name=".RobotActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize"/>
         <activity android:name=".RobotWithResponseActivity"
-            android:configChanges="keyboardHidden|orientation|keyboard|screenSize"></activity>
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize"/>
+        <activity android:name=".CustomRobotActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize"/>
+        <activity android:name=".SettingActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize"/>
     </application>
 
 </manifest>
